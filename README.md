@@ -1,2 +1,1 @@
-# areti
-Areti PoC
+# Areti PoC
