@@ -158,6 +158,21 @@ services:
       - ./containers-data/prod.workio.4/conf:/etc/influxdb/influxdb.conf
       - ./containers-init/influxdb:/docker-entrypoint-initdb.d
 
+  prod.redis:
+    image: "redis:latest"
+    container_name: prod.redis
+    hostname: prod.redis
+    restart: always
+    ports:
+      - 6379:6379
+    env_file: .env
+    environment:
+      - REDIS_REPLICATION_MODE=master
+    command: redis-server --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - ./containers-data/prod.redis/data:/var/lib/redis
+      - ./containers-data/prod.redis/conf:/usr/local/etc/redis/redis.conf
+
   # prod.work.1 (GUI, Monitoring and Siddhi) - TBD
   # prod.work.2 (GUI, Monitoring and Siddhi) - TBD
   # prod.work.3 (GUI, Monitoring and Siddhi) - TBD
